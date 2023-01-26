@@ -3,7 +3,7 @@ A white circle moves from the left edge of the screen
 to the right edge of the screen. When it reaches the 
 right edge, goees back to the left one.
 */
-float _cx = 0.0; //this is a place for the circle's position -- variable
+float _cx = 0.01; //this is a place for the circle's position -- variable
 
 void setup()
 {
@@ -21,10 +21,10 @@ void draw()
   //It is conditional execution
   if(_cx > width)  //if the curren position of the circle is...
   {
-    _cx = 0.0;  //smaller equal the screen with set it to zero
+    _cx = 0.01;  //smaller equal the screen with set it to zero
   }
   else
   {
-    _cx = _cx + 1;  //else enrease it with one
+    _cx = _cx * 1.1;  //else enrease it with one
   }
 }
