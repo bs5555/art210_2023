@@ -15,8 +15,9 @@ void setup()
 {
   size(1200,800,P3D);
   
-  picker = new Picker(this);
-  cam = new PeasyCam(this, 100);
+ 
+  cam = new PeasyCam(this, 300);
+   picker = new Picker(this);
   int cellCounter = 0;
   for(int y = 0; y < maxY; y = y + 1)
   {
@@ -33,6 +34,7 @@ void setup()
 
 void draw()
 {
+  cam.getState().apply(picker.getBuffer());
   background(30);
   noStroke();
   lights();
@@ -54,5 +56,15 @@ void draw()
 void mousePressed()
 {
   int id = picker.get(mouseX, mouseY);
+  for(int y = 0; y < maxY; y = y + 1)
+  {
+    for(int x = 0; x < maxX; x = x + 1)
+    {
+      for(int z = 0; z < maxZ; z = z + 1)
+      {
+        cells[x][y][z].click(id);
+      }
+    }
+  }  
   println(id);
 }

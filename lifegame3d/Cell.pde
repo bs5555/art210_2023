@@ -36,17 +36,9 @@ class Cell
     popMatrix();
   }
   
-  void click(int mx, int my)
+  void click(int _id)
   {
-    if(
-        this.px*this.d < mx
-        &&
-        (this.px*this.d)+this.d > mx
-        &&
-        this.py*this.d < my
-        &&
-        (this.py*this.d)+this.d > my
-      )
+    if(_id == this.id)
     {
       this.isLive = !this.isLive;
     }  
