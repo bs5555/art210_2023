@@ -21,6 +21,7 @@ class Mover
   
   void update()
   {
+    this.acceleration = PVector.random2D();
     this.velocity.add(this.acceleration);
     this.velocity.limit(topspeed);
     this.location.add(this.velocity);
