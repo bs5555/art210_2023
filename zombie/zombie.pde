@@ -4,7 +4,7 @@ Sprite s;
 void setup()
 {
   size(800,600);
-  z =  new Animation("numbers","svg");
+  z =  new Animation("zombie","svg");
   s = new Sprite("test");
   s.acceleration = PVector.random2D();
   

@@ -14,6 +14,7 @@ class Animation
   {
     File dir= new File(dataPath(foldername));
     File[] files= dir.listFiles();
+    println(files);
     Arrays.sort(files);
     if(ext == "svg")
     {
