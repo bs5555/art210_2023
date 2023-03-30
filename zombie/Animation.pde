@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Animation
 {
   PShape[] framesS;
@@ -12,28 +14,36 @@ class Animation
   {
     File dir= new File(dataPath(foldername));
     File[] files= dir.listFiles();
+    Arrays.sort(files);
     if(ext == "svg")
     {
       this.isSvg=true;
       this.framesS = new PShape[files.length];
+      for(int i = 0; i <= files.length - 1; i++)
+      {
+        String path = files[i].getAbsolutePath();
+        if(path.toLowerCase().endsWith(".svg"))
+        {
+          println(path);
+          this.framesS[this.nFrames]=loadShape(path);
+          this.nFrames = this.nFrames + 1;
+        }
+      }  
     }
     else
     {
       this.isSvg=false;
       this.framesI = new PImage[files.length];
-    }  
-    for(int i = 0; i <= files.length - 1; i++)
-    {
-      String path = files[i].getAbsolutePath();
-      
-      if(path.toLowerCase().endsWith(".svg"))
+      for(int i = 0; i <= files.length - 1; i++)
       {
-        this.framesS[i]=loadShape(path);
-      }
-      if(path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png"))
-      {
-        this.framesI[i]=loadImage(path);
-      }
+        String path = files[i].getAbsolutePath();
+        if(path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png"))
+        {
+          println(path);
+          this.framesI[this.nFrames]=loadImage(path);
+          this.nFrames = this.nFrames + 1;
+        }
+      }   
     }  
   }
   
@@ -51,7 +61,7 @@ class Animation
     }
     this.counter = this.counter + this.speed;
     this.currentFrame = floor(this.counter);
-    if(this.currentFrame > this.framesS.length-1)
+    if(this.currentFrame > this.nFrames-1)
     {
       this.counter=0;
       this.currentFrame=0;

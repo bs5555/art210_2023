@@ -4,7 +4,7 @@ Sprite s;
 void setup()
 {
   size(800,600);
-  z =  new Animation("zombie","svg");
+  z =  new Animation("numbers","svg");
   s = new Sprite("test");
   s.acceleration = PVector.random2D();
   
@@ -13,13 +13,13 @@ void setup()
 void draw()
 {
   background(255);
-  //translate(width/2,height/2);
-  //z.speed = (float)mouseX/width; 
-  //z.display();
+  translate(width/2,height/2);
+  z.speed = (float)mouseX/width; 
+  z.display();
   
-  s.display();
-  s.update();
-  s.check();
+  //s.display();
+  //s.update();
+  //s.check();
   
 
 }
