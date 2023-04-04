@@ -40,7 +40,6 @@ class Animation
         String path = files[i].getAbsolutePath();
         if(path.toLowerCase().endsWith(".jpg") || path.toLowerCase().endsWith(".png"))
         {
-          println(path);
           this.framesI[this.nFrames]=loadImage(path);
           this.nFrames = this.nFrames + 1;
         }
@@ -50,16 +49,17 @@ class Animation
   
   void display()
   {
-    if(isSvg)
-    {
-      shapeMode(CENTER);
-      shape(this.framesS[this.currentFrame],0,0);
-    }
-    else
-    {
-      imageMode(CENTER);
-      image(this.framesI[this.currentFrame],0,0);
-    }
+      if(isSvg)
+      {
+        shapeMode(CENTER);
+        shape(this.framesS[this.currentFrame],0,0);
+      }
+      else
+      {
+        imageMode(CENTER);
+        image(this.framesI[this.currentFrame],0,0);
+      }
+      
     this.counter = this.counter + this.speed;
     this.currentFrame = floor(this.counter);
     if(this.currentFrame > this.nFrames-1)
