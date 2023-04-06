@@ -14,8 +14,11 @@ class Sprite
   int nAnim = 0;
   Animation[] anim = new Animation[maxAnim];
   float scale = 1.0;
+  float rotation = 0.0;
+  PVector translation = new PVector(0,0);
   
   float collRadius = w/2.0;
+  PVector collBox = new PVector(w,h);
   
   Sprite(String _id)
   {
@@ -47,6 +50,8 @@ class Sprite
       translate(this.location.x,this.location.y);
       pushMatrix();
         scale(this.scale);
+        translate(this.translation.x,this.translation.y);
+        rotate(radians(this.rotation));
         this.anim[this.currentAnim].display();
       popMatrix(); 
       testDisplay();   
@@ -55,22 +60,25 @@ class Sprite
   
   void testDisplay()
   {
-    noStroke();
-    fill(color(255,100,100));
-    circle(0,0,10);
-    noFill();
-    stroke(color(100,100,255));
-    rect(-reg.x,-reg.y,this.w,this.h);
-    noStroke();
-    fill(color(0,0,255,100));
-    circle(0,0,this.collRadius*2);
+    if(test)
+    {
+      noStroke();
+      fill(color(255,100,100));
+      circle(0,0,10);
+      noFill();
+      stroke(color(100,100,255));
+      rect(-reg.x,-reg.y,this.w,this.h);
+      noStroke();
+      fill(color(0,0,255,100));
+      circle(0,0,this.collRadius*2);
+    }  
   }
   
   
   void check()
   {
     
-    Collision coll = new Collision(this,true);
+    /*Collision coll = new Collision(this,true);
     int res = coll.box2circle(100,100,width-200,height-200,false);
     //if(res == Collision.RIGHT) this.location.x = 0;
     
@@ -97,7 +105,7 @@ class Sprite
     {
       this.currentAnim = 0;
     }
-    this.velocity.limit(3);
+    this.velocity.limit(3);*/
     
   }
   

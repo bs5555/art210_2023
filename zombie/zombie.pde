@@ -1,19 +1,18 @@
-Sprite s;
-Sprite z;
+import processing.sound.*;
+
+Bob s;
+int nSnake = 3;
+Snake[] z = new Snake[nSnake];
+boolean test = true;
+
 void setup()
 {
   size(1200,800);
-  s = new Sprite("test");
-  s.acceleration = new PVector(0.01,0);
-  s.registerAnimation(new Animation("zombie","svg"));
-  s.registerAnimation(new Animation("zombie_reverse","svg"));
-  s.scale = 0.4;
-  s.h = 120;
-  
-  z = new Sprite("snake");
-  z.acceleration = new PVector(0.07,0);
-  z.registerAnimation(new Animation("snake","png"));
-  z.registerAnimation(new Animation("snake","png"));
+  s = new Bob("test");
+  for(int i =0; i < nSnake; i =  i + 1)
+  {
+    z[i] = new Snake("snake"+i);
+  }  
 }
 
 void draw()
@@ -24,9 +23,18 @@ void draw()
   s.display();
   s.update();
   s.check();
-  z.display();
-  z.update();
-  z.check();
+  for(int i =0; i < nSnake; i =  i + 1)
+  {
+    z[i].display();
+    z[i].update();
+    z[i].check();
+  }  
+}
+
+void keyPressed()
+{
+  s.acceleration.x = s.acceleration.x * (-1.0);
+  s.velocity.x = s.acceleration.x * (-1.0);
 }
 
 void mouseClicked()

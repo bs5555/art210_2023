@@ -64,4 +64,9 @@ class Collision
     return(OUT);
   }
   
+  int box2box(float _x, float _y, float _w,float _h)
+  {
+    return(0); 
+  }
+  
 }
