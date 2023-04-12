@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title> Project 2 </title>
+  <link rel="icon" type="image/svg+xml" href="res/icon.svg">
+  <link rel="icon" href="res/favicon.ico">
+<style>
+  div.ballkeeper{min-height:100vh; display:grid;}
+  div.ball{width:100px; height:100px; align-self:center; justify-self:center;
+   background:#000; border-radius:50%;
+  }
+</style>
+<script src="res/jquery.js"></script>
+</head>
+<body>
+
+
+<div class="Speech">
+  <h4 id="output"></h4>
+</div>
+
+<div class="ballkeeper">
+   <div class="ball">
+</div>
+
+
+
+<script>
+  /* JS comes here */
+  var silence = true;
+  function start(){
+                var r = document.getElementById("output");
+            if("webkitSpeechRecognition" in window){
+                var speechRecognizer = new webkitSpeechRecognition();
+                speechRecognizer.continuous = true;
+                speechRecognizer.interimResults = true;
+                speechRecognizer.lang = "en-US";
+                speechRecognizer.start();
+
+                var finalTranscripts = "";
+                speechRecognizer.onresult = function(event){
+                    var interimTranscripts = "";
+                    var poetryTimer;
+                    for(var i=event.resultIndex; i<event.results.length; i++){
+                        var transcript = event.results[i][0].transcript;
+                        transcript.replace("\n", "<br>");
+                        if(event.results[i].isFinal){
+                            finalTranscripts = transcript;
+                        }
+                        else{
+                            interimTranscripts += transcript;
+                        }
+
+                        if(interimTranscripts == '')
+                        {
+                          poetryTimer = setTimeout(function(){
+                            console.log('Poetry is to be generated');
+                          },3000);
+                        }
+                        else
+                        {
+                          console.log('Text has changed');
+                          r.innerHTML =  interimTranscripts ;
+                          clearTimeout(poetryTimer);
+
+                        }
+                    }
+                };
+                speechRecognizer.onerror = function(event){
+                };
+            }
+            else{
+                r.innerHTML = "Your browser does not support that.";
+            }
+            }
+
+      start();
+
+var soundAllowed = function(stream){
+  console.log('sound is ok');
+  window.persistAudioStream = stream;
+  var audioContent = new AudioContext();
+  var audioStream = audioContent.createMediaStreamSource( stream );
+  var analyser = audioContent.createAnalyser();
+  audioStream.connect(analyser);
+  analyser.fftSize = 1024;
+
+  var frequencyArray = new Uint8Array(analyser.frequencyBinCount);
+  var doDraw = function()
+  {
+    requestAnimationFrame(doDraw);
+    analyser.getByteFrequencyData(frequencyArray);
+    var adjustedLength;
+    var sum = 0;
+    for (var i = 0 ; i < 255; i++)
+    {
+      adjustedLength = Math.floor(frequencyArray[i]) - (Math.floor(frequencyArray[i]) % 5);
+      sum=sum + adjustedLength;
+    }
+    sum = (sum/2550)+8.5;
+    var op = (20.0-sum)/20.0;
+    $('.ball').css({'width':sum+'vh','height':sum+'vh','opacity':op});
+
+    //console.log(sum);
+  }
+  doDraw();
+
+}
+
+
+
+var soundNotAllowed = function(){
+  console.log('sound is not ok');
+}
+navigator.getUserMedia({audio:true}, soundAllowed, soundNotAllowed);
+
+</script>
+
+
+
+</body></html>
