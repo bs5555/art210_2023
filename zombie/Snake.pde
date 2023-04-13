@@ -30,10 +30,11 @@ class Snake extends Sprite
       this.acceleration.y = random(0.01,0.03);      
     }
     
-    res = coll.circle2cirle(s);
+    res = coll.circle2circle(s);
     if(res == Collision.IN)
     {
-      
+       triOsc.play();
+       env.play(triOsc, attackTime, sustainTime, sustainLevel, releaseTime); 
     }
     
   }
