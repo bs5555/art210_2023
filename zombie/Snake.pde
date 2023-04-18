@@ -33,8 +33,7 @@ class Snake extends Sprite
     res = coll.circle2circle(s);
     if(res == Collision.IN)
     {
-       triOsc.play();
-       env.play(triOsc, attackTime, sustainTime, sustainLevel, releaseTime); 
+      // boing.hit();
     }
     
   }

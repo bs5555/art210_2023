@@ -1,29 +1,25 @@
 import processing.sound.*;
 import de.looksgood.ani.*;
 
-TriOsc triOsc;
-Env env;
-
-float attackTime = 0.001;
-float sustainTime = 0.004;
-float sustainLevel = 0.3;
-float releaseTime = 1.4;
-
-
-
 Bob s;
 int nSnake = 13;
 Snake[] z = new Snake[nSnake];
 boolean test = false;
-Sound m;
+SoundSprite m;
+Synth boing;
 
 
 void setup()
 {
-  //size(1200,800);
-  fullScreen();
-  m = new Sound(this,"music.wav");
+  size(1200,800);
+  //fullScreen();
   Ani.init(this);
+  
+  m = new SoundSprite(this,"music.wav");
+  m.loop();
+  m.fadeIn();
+  
+  boing = new Synth(this,1);
   
   
   
@@ -34,11 +30,6 @@ void setup()
     z[i] = new Snake("snake"+i);
   } 
   
-  // Create triangle wave
-  triOsc = new TriOsc(this);
-
-  // Create the envelope 
-  env  = new Env(this); 
   
 }
 
@@ -58,6 +49,8 @@ void draw()
   }  
   m.display();
   m.update();
+  boing.display();
+  boing.update();
 
 }
 
@@ -69,12 +62,6 @@ void keyPressed()
 
 void mouseClicked()
 {
-   if(m.soundLevel == 0)
-   {
-     m.fadeIn();
-   }
-   else
-   {
-     m.fadeOut();
-   }
+   //boing.frequency = random(60,6000);
+   boing.hit();
 }

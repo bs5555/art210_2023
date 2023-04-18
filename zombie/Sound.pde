@@ -8,6 +8,15 @@ class Sound
    {
      this.app=_app;
      this.me = new SoundFile(this.app,filename);
+   }
+   
+   void play()
+   {
+     this.me.play();
+   }
+   
+   void loop()
+   {
      this.me.loop();
    }
    
