@@ -33,7 +33,8 @@ class Snake extends Sprite
     res = coll.circle2circle(s);
     if(res == Collision.IN)
     {
-      // boing.hit();
+       boing.hit();
+       gameStateChange(LOOSE);
     }
     
   }
