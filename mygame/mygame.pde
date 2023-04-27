@@ -1,19 +1,25 @@
 import processing.sound.*;
 import de.looksgood.ani.*;
 
-boolean test = true;
+boolean test = false;
 Scene game;
 
 void setup()
 {
-  size(1000,800,P3D);
+  size(2000,800,P3D);
   //fullScreen(P3D);
   game = new Scene();
 }
 
 void draw()
 {
-  game.check();
+  
   game.update();
+  game.check();
   game.display();
+}
+
+void keyPressed()
+{
+  game.z.jump();
 }

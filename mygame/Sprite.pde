@@ -13,6 +13,7 @@ class Sprite
   int currentAnim = 0;
   int nAnim = 0;
   Animation[] anim = new Animation[maxAnim];
+  
   float scale = 1.0;
   float rotation = 0.0;
   PVector translation = new PVector(0,0);
@@ -52,6 +53,7 @@ class Sprite
         scale(this.scale);
         translate(this.translation.x,this.translation.y);
         rotate(radians(this.rotation));
+        //translate(-this.reg.x,-this.reg.y);
         this.anim[this.currentAnim].display();
       popMatrix(); 
       testDisplay();   
@@ -65,6 +67,9 @@ class Sprite
       noStroke();
       fill(color(255,100,100));
       circle(0,0,10);
+      textMode(CENTER);
+      textSize(40);
+      text(this.id,0,-20);
       noFill();
       stroke(color(100,100,255));
       rect(-reg.x,-reg.y,this.w,this.h);

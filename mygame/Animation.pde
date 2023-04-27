@@ -9,6 +9,7 @@ class Animation
   float speed = 0.1;
   float counter = 0;
   boolean isSvg = true;
+  int animPos = CENTER;
   
   Animation(String foldername, String ext)
   {
@@ -51,12 +52,12 @@ class Animation
   {
       if(isSvg)
       {
-        shapeMode(CENTER);
+        shapeMode(this.animPos);
         shape(this.framesS[this.currentFrame],0,0);
       }
       else
       {
-        imageMode(CENTER);
+        imageMode(this.animPos);
         image(this.framesI[this.currentFrame],0,0);
       }
       
