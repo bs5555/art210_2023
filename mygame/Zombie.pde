@@ -1,7 +1,8 @@
 class Zombie extends Sprite
 {
   float groundLevel = 0;
-  boolean isJump = false;
+  String state = "run";
+  float jumpSpeed=2.0;
   
   Zombie(String _id)
   {
@@ -13,16 +14,22 @@ class Zombie extends Sprite
     this.groundLevel = height-250;
     this.location.y = groundLevel;
     this.location.x = 150;
-    this.acceleration.y = 0.08; //gravity
+    this.acceleration.y = 0.05; //gravity
+  }
+  
+  void startJump()
+  {
+    if(this.state=="run")
+    {
+      this.state = "collect";
+    }  
   }
   
   void jump()
   {
-    if(!this.isJump)
-    {
-      this.velocity.y = -6;
-      this.isJump = true;
-    }  
+    this.state = "jump";
+    this.velocity.y = -jumpSpeed;
+    this.location.y = this.location.y - 0.1;
   }
   
   void display()
@@ -33,13 +40,18 @@ class Zombie extends Sprite
     float d = (height-this.location.y)/2.0;
     float shadow_density = lerp(10,110,1.0-((height-this.location.y)/height));
     fill(0,0,0,shadow_density);
-    ;
     ellipse(this.location.x,this.groundLevel+this.h,d,d/3.0);
   }
   
   void check()
   {
-    if(this.isJump)
+    println(this.jumpSpeed);
+    if(this.state=="collect")
+    {
+      this.jumpSpeed = this.jumpSpeed+0.1;
+      if(this.jumpSpeed > 6.0) this.jumpSpeed=6.0;
+    }
+    if(this.state=="jump")
     {
       if(this.velocity.y < 0) this.currentAnim = 1;
       if(this.velocity.y > 0) this.currentAnim = 2;
@@ -51,7 +63,11 @@ class Zombie extends Sprite
     if(this.location.y > this.groundLevel) 
     {
       this.location.y = this.groundLevel;
-      this.isJump = false;
+      if(this.state != "collect") 
+      {
+        this.state = "run";
+        this.jumpSpeed = 2.0;
+      } 
     }  
     
     

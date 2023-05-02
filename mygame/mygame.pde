@@ -21,5 +21,10 @@ void draw()
 
 void keyPressed()
 {
+  game.z.startJump();
+}
+
+void keyReleased()
+{
   game.z.jump();
 }

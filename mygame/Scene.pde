@@ -1,7 +1,11 @@
 class Scene
 {
   
-  Zombie z = new Zombie("z"); 
+  PImage bg = loadImage("bg.jpg");
+  Zombie z = new Zombie("z");
+  
+  int nCloud = 6;
+  Cloud[] cc = new Cloud[nCloud];
   
   int nGround = 0;
   int maxGround = 1;
@@ -20,16 +24,25 @@ class Scene
       this.ground[i].endDistance = (this.maxGround-2)*1000;
       this.nGround = i;
     } 
+    for(int i = 0; i < this.nCloud; i = i + 1)
+    {
+      this.cc[i]=new Cloud("cc"+i);
+      this.cc[i].location.x = i *500;
+    }
   }
   
   void display()
   {
-    background(255);
+    image(bg,0,0);
     for(int i = 0; i < this.nGround; i = i + 1)
     {
       ground[i].display();
     }
     z.display();
+    for(int i = 0; i < this.nCloud; i = i + 1)
+    {
+      cc[i].display();
+    }  
   }
   
   void update()
@@ -39,6 +52,10 @@ class Scene
       ground[i].update();
     }
     z.update();
+    for(int i = 0; i < this.nCloud; i = i + 1)
+    {
+      cc[i].update();
+    }  
   }
   
   void check()
@@ -48,5 +65,9 @@ class Scene
       ground[i].check();
     }
     z.check();
+    for(int i = 0; i < this.nCloud; i = i + 1)
+    {
+      cc[i].check();
+    }  
   }
 }
