@@ -1,7 +1,8 @@
 class Cloud extends Sprite
 {
-  PGraphics pg;
-  float endDistance = 0;
+  PGraphics pg;        //grahics bufer of cloud layer
+  int h = height/3;  //height of cloud layer
+  int nGen = 3;        // complexity of clouds
    
   Cloud(String _id)
   {
@@ -17,17 +18,33 @@ class Cloud extends Sprite
   
   void createCloud()
   {
-    this.pg = createGraphics(1000, 500);
+    this.pg = createGraphics(1000, h);
     this.pg.beginDraw();
     this.pg.noStroke();
-    
-    for(int i =0; i < 16; i = i + 1)
+    this.pg.fill(color(255,255,255,20));
+    this.cloudGen(random(100,800),random(0,this.h-100),random(200,300), this.nGen);
+    this.cloudGen(random(100,800),random(0,this.h-100),random(200,300), this.nGen);
+    this.pg.endDraw();
+    this.velocity.x = -random(0.1,0.5);
+  }
+  
+  void cloudGen(float x,float y,float rad, int gen)
+  {
+    if(gen > 0)
     {
-      this.pg.fill(color(255,255,255,random(20,100)));
-      this.pg.circle(random(100,800),random(-100,300),random(50,200));
+      if(x  > (rad/2) && x < 1000-(rad/2) && y < this.h-(rad/2)) 
+      {
+        this.pg.circle(x,y,rad);
+      }
+      int n = floor(random(2,4));
+      for(int i = 0; i < n; i = i + 1)
+      {
+        float nx = x + random(rad*1.5)-random(rad);
+        float ny = y + random(rad/4.0)-random(rad/4.0);
+        rad = rad*0.8;
+        this.cloudGen(nx,ny,rad, gen-1);
+      }    
     }
-    pg.endDraw();
-    this.velocity.x = -random(0.2,0.5);
   }
   
   void display()

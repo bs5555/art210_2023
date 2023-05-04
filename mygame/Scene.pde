@@ -4,13 +4,17 @@ class Scene
   PImage bg = loadImage("bg.jpg");
   Zombie z = new Zombie("z");
   
+  Obstacle o = new Obstacle("o1");
+  
   int nCloud = 6;
   Cloud[] cc = new Cloud[nCloud];
   
   int nGround = 0;
   int maxGround = 1;
   Ground[] ground = new Ground[10];
-  Animation[] groundAnim = new Animation[3]; 
+  Animation[] groundAnim = new Animation[3];
+  
+  
   
   
   Scene()
@@ -27,8 +31,9 @@ class Scene
     for(int i = 0; i < this.nCloud; i = i + 1)
     {
       this.cc[i]=new Cloud("cc"+i);
-      this.cc[i].location.x = i *500;
+      this.cc[i].location.x = i *1000;
     }
+    bg.resize(width,height);
   }
   
   void display()
@@ -42,7 +47,8 @@ class Scene
     for(int i = 0; i < this.nCloud; i = i + 1)
     {
       cc[i].display();
-    }  
+    } 
+    o.display();
   }
   
   void update()
@@ -55,7 +61,8 @@ class Scene
     for(int i = 0; i < this.nCloud; i = i + 1)
     {
       cc[i].update();
-    }  
+    } 
+    o.update();
   }
   
   void check()
@@ -69,5 +76,6 @@ class Scene
     {
       cc[i].check();
     }  
+    o.check();
   }
 }
