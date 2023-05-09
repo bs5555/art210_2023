@@ -10,6 +10,7 @@ class Zombie extends Sprite
     this.registerAnimation(new Animation("zombie","svg"));
     this.registerAnimation(new Animation("zombie_up","svg"));
     this.registerAnimation(new Animation("zombie_down","svg"));
+    this.registerAnimation(new Animation("zombie_dead","svg"));
     this.scale = 0.5;
     this.groundLevel = height-250;
     this.location.y = groundLevel;
@@ -45,7 +46,7 @@ class Zombie extends Sprite
   
   void check()
   {
-    println(this.jumpSpeed);
+    //println(this.jumpSpeed);
     if(this.state=="collect")
     {
       this.jumpSpeed = this.jumpSpeed+0.1;

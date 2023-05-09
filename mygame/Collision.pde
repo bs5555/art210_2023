@@ -52,7 +52,7 @@ class Collision
     return(res);
   }
   
-  /*int circle2circle(Bob sprite)
+  int circle2circle(Sprite sprite)
   {
     if(this.sprite.id != sprite.id)
     {
@@ -62,7 +62,7 @@ class Collision
       if(d < minDistance) return(IN);
     }  
     return(OUT);
-  }*/
+  }
   
   int box2box(float _x, float _y, float _w,float _h)
   {
